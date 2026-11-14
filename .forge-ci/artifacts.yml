@@ -1,0 +1,39 @@
+# SPDX-FileCopyrightText: 2025 Digg - Agency for Digital Government
+#
+# SPDX-License-Identifier: CC0-1.0
+# Artifacts Configuration for rest-api-profil-lint-processor
+# NPM CLI application with container
+# Package tarballs will be attached to GitHub Release as assets
+# The container image is signed keyless with Sigstore and carries SBOM and
+# SLSA provenance attestations. The release files keep their OpenPGP .asc
+# signatures, made with the key in RELEASE_GPG_PRIVATE_KEY.
+sign:
+  method: sigstore
+  files-method: gpg
+# The release commit and the final tag are signed with the GPG key in
+# RELEASE_GPG_PRIVATE_KEY, as before.
+git-signing:
+  method: gpg
+artifacts:
+  - name: rest-api-profil-lint-processor
+    project-type: npm
+    working-directory: .
+    build-type: application
+    # GitHub Packages, as before: @diggsweden/rest-api-profil-lint-processor
+    # on npm.pkg.github.com.
+    publish-to:
+      - forge-packages
+    config:
+      node-version: 24
+      # Forge CI publishes each version under a dist-tag of its own and never
+      # moves a shared one such as latest.
+      npm-tag: release-{version}
+# Container builds from source: the Containerfile copies the source code and
+# runs npm install, and copies nothing from the packed artifact. `from` ties
+# the image to the artifact so that it keeps its SBOM.
+containers:
+  - name: rest-api-profil-lint-processor
+    from: [rest-api-profil-lint-processor]
+    container-file: Containerfile
+    context: .
+    platforms: linux/amd64,linux/arm64

@@ -1,0 +1,88 @@
+# SPDX-FileCopyrightText: 2025 Digg - Agency for Digital Government
+#
+# SPDX-License-Identifier: CC0-1.0
+
+# The lint plan of the pull request gate: Forge CI runs `nanolinter verify`
+# against it. The checks are the ones `just lint-all` runs, with the
+# publiccode.yml validation and the SAST and dependency scans the pull
+# request gate ran before.
+# `nanolinter explain --all` lists more checks.
+#
+# `just lint-node-ts-types` has no check here: the gate installs no
+# dependencies, which tsc needs. The test job compiles the same project
+# (`npm test` runs `npm run build` first), so a type error still fails the
+# pull request.
+
+[detect]
+auto = true
+
+[verify]
+checks = [
+  "version-control",
+  "commits",
+  "secrets",
+  "sast",
+  "osv",
+  "publiccode",
+  "yaml",
+  "markdown",
+  "shell",
+  "shell-format",
+  "actions",
+  "license",
+  "xml",
+  "container",
+  "node-eslint",
+  "node-format",
+]
+
+[policy]
+block = [
+  "version-control",
+  "commits",
+  "secrets",
+  "sast",
+  "osv",
+  "publiccode",
+  "yaml",
+  "markdown",
+  "shell",
+  "shell-format",
+  "actions",
+  "license",
+  "xml",
+  "container",
+  "node-eslint",
+  "node-format",
+]
+
+# The OpenAPI files under apis/ are input for the linter's own tests and some
+# are malformed on purpose. .yamlfmt leaves the directory out; the gate hands
+# yamlfmt its files itself, so the same exclusion is repeated here.
+[verify.filters.yaml]
+exclude = "^apis/"
+
+# Markdown as `just lint-markdown` runs it: without the line length rule and
+# without the generated changelog.
+[verify.filters.markdown]
+exclude = "(^|/)CHANGELOG\\.md$"
+
+[linters.markdown.settings]
+"rumdl.disable_rules" = ["MD013"]
+
+# Two rules are left out, each by its exact id; every other rule runs and
+# blocks.
+#
+# renovate.json sets no minimum release age in its package rules. That is a
+# choice about how Renovate proposes updates, not a defect in the code, so
+# the rule is left out here for the maintainers to decide.
+#
+# The prototype pollution audit rule reports the loop in
+# src/rulesets/FelRules.ts that follows a JSON pointer through a document. It
+# only reads, and assigns to no property. The SAST scan before failed on
+# high severity findings only, and this one is a warning.
+[linters.sast.settings]
+"opengrep.exclude_rules" = [
+  "package_managers.renovate.renovate-missing-minimum-release-age.renovate-missing-minimum-release-age",
+  "javascript.lang.security.audit.prototype-pollution.prototype-pollution-loop.prototype-pollution-loop",
+]
