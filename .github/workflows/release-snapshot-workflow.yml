@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2025 Digg - Agency for Digital Government
 #
 # SPDX-License-Identifier: CC0-1.0
-# Release Workflow Dev
+# Release Snapshot Workflow
 #
 # A development snapshot of a branch: Forge CI's snapshot orchestrator packs
 # the package and builds the container image, and publishes both without a
@@ -16,7 +16,7 @@
 #   @diggsweden/rest-api-profil-lint-processor@<version>-snapshot-<branch>-<sha>
 # - Container image: ghcr.io/diggsweden/rest-api-profil-lint-processor,
 #   under a tag ending in -snapshot (never 'latest')
-name: Release Workflow Dev
+name: Release Snapshot Workflow
 on:
   workflow_dispatch:
 permissions:
@@ -25,7 +25,7 @@ concurrency:
   group: snapshot-${{ github.ref_name }}
   cancel-in-progress: false
 jobs:
-  dev-release:
+  snapshot-release:
     permissions:
       actions: read # Read the run's artifacts
       contents: read # Read code for building
