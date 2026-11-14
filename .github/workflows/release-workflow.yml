@@ -51,3 +51,26 @@ jobs:
       file-pattern: 'CHANGELOG.md package.json package-lock.json'
       changelog-creator: git-cliff
       release-publisher: github-cli
+
+  # Forge CI publishes each version under a dist-tag of its own and never
+  # moves a shared one. A plain `npm install` follows `latest`, so a stable
+  # release moves it here, as `npm publish` did before. Prereleases leave it
+  # alone.
+  npm-latest:
+    name: Move the npm latest tag
+    needs: [release]
+    if: ${{ !contains(github.ref_name, '-') }}
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write # Move the dist-tag on GitHub Packages
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: '24.17.0'
+          registry-url: https://npm.pkg.github.com
+      - name: Point latest at the released version
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REQUEST: ${{ github.ref_name }}
+        run: npm dist-tag add "@diggsweden/rest-api-profil-lint-processor@${REQUEST#release-request/v}" latest

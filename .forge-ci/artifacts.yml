@@ -26,7 +26,8 @@ artifacts:
     config:
       node-version: 24
       # Forge CI publishes each version under a dist-tag of its own and never
-      # moves a shared one such as latest.
+      # moves a shared one. The npm-latest job of the release workflow moves
+      # latest after a stable release.
       npm-tag: release-{version}
 # Container builds from source: the Containerfile copies the source code and
 # runs npm install, and copies nothing from the packed artifact. `from` ties
