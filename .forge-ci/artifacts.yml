@@ -19,7 +19,7 @@ artifacts:
     project-type: npm
     working-directory: .
     build-type: application
-    # GitHub Packages, as before: @hanklankorg/rest-api-profil-lint-processor
+    # GitHub Packages, as before: @hanklankorg/fc-demo-rest-api-profil-lint-processor
     # on npm.pkg.github.com.
     publish-to:
       - forge-packages
