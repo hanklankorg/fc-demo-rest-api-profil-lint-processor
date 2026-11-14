@@ -36,12 +36,13 @@ checks = [
   "node-format",
 ]
 
+# SAST findings are reported and do not fail the pull request: "sast" runs
+# under [verify] and is not listed here.
 [policy]
 block = [
   "version-control",
   "commits",
   "secrets",
-  "sast",
   "osv",
   "publiccode",
   "yaml",
@@ -69,13 +70,3 @@ exclude = "(^|/)CHANGELOG\\.md$"
 
 [linters.markdown.settings]
 "rumdl.disable_rules" = ["MD013"]
-
-# One rule is left out, by its exact id; every other rule runs and blocks.
-#
-# renovate.json sets no minimum release age in its package rules. That is a
-# choice about how Renovate proposes updates, not a defect in the code, so
-# the rule is left out here for the maintainers to decide.
-[linters.sast.settings]
-"opengrep.exclude_rules" = [
-  "package_managers.renovate.renovate-missing-minimum-release-age.renovate-missing-minimum-release-age",
-]

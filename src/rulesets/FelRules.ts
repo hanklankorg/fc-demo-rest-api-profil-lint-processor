@@ -170,8 +170,6 @@ export class Fel01 extends BaseRuleset {
         return undefined;
       }
 
-      // Follows a JSON pointer and only reads; nothing is assigned to a property.
-      // nosemgrep: javascript.lang.security.audit.prototype-pollution.prototype-pollution-loop.prototype-pollution-loop
       current = current[segment];
     }
 
