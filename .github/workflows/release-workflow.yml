@@ -73,4 +73,5 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REQUEST: ${{ github.ref_name }}
-        run: npm dist-tag add "@diggsweden/rest-api-profil-lint-processor@${REQUEST#release-request/v}" latest
+        # The scope is the repository owner, as GitHub Packages requires.
+        run: npm dist-tag add "@${GITHUB_REPOSITORY_OWNER,,}/rest-api-profil-lint-processor@${REQUEST#release-request/v}" latest
