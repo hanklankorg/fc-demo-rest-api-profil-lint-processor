@@ -5,15 +5,46 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.1.0] - 2026-10-28
+## [2.2.0] - 2026-11-15
 
 ### Added
 
+- Add health and metrics endpoints and host server variable (#704)
 - Add termsOfService(dok03) to guidelines (#712)
 - Add mise and dockerfile config (#708)
+- Add swagger ui (#648)
+- * feat: add concurrency handling and logging (#606)
+- Add categories array to GenerateReportRequest in spec (#601)
+- Add CODEOWNERS file (#605)
+- Add api mode (#561)
+- Add stderr for errors when writing to excel file (#485)
+- Add rule MOG.02
+- Add rule MOG.01
+- Add rule RES.06
+- Add functionality to build and run npm package version of raplp (#409)
+- Add rule DOK.11
+- Add a new workflow for pre-release tags (#396)
+- Add rule RES.02
+- Add rule SAK.01
+- Add rule DOK.09
+- Add rule DOK.08
+- Add rule DOK.06
+- Add new rule sak16
 
 ### Changed
 
+- Use the lab's Forge CI layer
+- Name the snapshot and release flows as the other projects do
+- Name the snapshot flow release-snapshot-workflow.yml
+- Take the npm scope of the latest tag from the repository owner
+- Report SAST findings without failing the pull request
+- Silence the prototype pollution finding where it is reported
+- Move the npm latest tag after a stable release
+- Migrate workflows to forge-ci
+- Update dependency fast-xml-parser to v5.12.0 [security] (#718)
+- Feature/524 i18n for backend (#691)
+- Single source api version (#717)
+- Update image ref guidelines (#703)
 - Bump version for release 2.1.0 (#716)
 - Bump vulnerable dependencies (#715)
 - Feature/710 bugg arq03 (#714)
@@ -42,28 +73,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update dependency node to v24.17.0 (#663)
 - Update dependency fast-xml-parser to v5.9.3 (#661)
 - Update core dependencies to v5.9.2 (#652)
-
-### Fixed
-
-- Switch to parameterized logging (#672)
-
-### Removed
-
-- Remove paranoid setting from project config (#700)
-
-## [2.0.0] - 2026-06-16
-
-### Added
-
-- Add swagger ui (#648)
-- * feat: add concurrency handling and logging (#606)
-- Add categories array to GenerateReportRequest in spec (#601)
-- Add CODEOWNERS file (#605)
-- Add api mode (#561)
-- Add stderr for errors when writing to excel file (#485)
-
-### Changed
-
 - Update text for api-specification (#650)
 - Update artifacts.yml
 - Update with version info (#647)
@@ -141,54 +150,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Lock file maintenance (#454)
 - Update node.js to <=22.21.1 (#453)
 - Update dependency node to v22.21.1 (#452)
-
-### Fixed
-
-- Adoption-of-dynamic-url-var-setting-for-versioning (#644)
-- Update given path to target each server url directly and simplify regexp
-- Update of schema attributes (#645)
-- Adoption-of-dynamic-url-var-setting (#638)
-- Allow-hateoas-hal-fix (#634)
-- Update ApiInfo object with correct data before release (#622)
-- Correct severitys for Dok03 (#620)
-- Generate report buffer without writing to file system (#611)
-- Correct references to openapi.yaml (#597)
-- Update package-lock.json (#557)
-- Fix broken link (#521)
-- Fix project with just lint-fix, ignore some rules for now (#501)
-- Upgrade to reuseable-ci 2.6.x and just (#475)
-
-### Removed
-
-- Remove categories from generate report request in spec (#608)
-
-
-## [1.1.1] - 2025-11-06
-
-### Fixed
-
-- Publish npm package to gh (#448)
-
-
-## [1.1.0] - 2025-11-06
-
-### Added
-
-- Add rule MOG.02
-- Add rule MOG.01
-- Add rule RES.06
-- Add functionality to build and run npm package version of raplp (#409)
-- Add rule DOK.11
-- Add a new workflow for pre-release tags (#396)
-- Add rule RES.02
-- Add rule SAK.01
-- Add rule DOK.09
-- Add rule DOK.08
-- Add rule DOK.06
-- Add new rule sak16
-
-### Changed
-
 - Update licence headers as recommended (#441)
 - Lock file maintenance (#446)
 - Update dependency node to v22.21.0 (#443)
@@ -260,26 +221,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update dependency ts-jest to ^29.3.2 (#312)
 - Update dependency @types/node to ^22.15.17 (#311)
 - Update node.js to <=22.15.1 (#310)
+- Initial commit
 
 ### Fixed
 
+- Name the trial package after the demo repository
+- Publish the trial package under the test organisation
+- Include the runtime OpenAPI asset
+- Switch to parameterized logging (#672)
+- Adoption-of-dynamic-url-var-setting-for-versioning (#644)
+- Update given path to target each server url directly and simplify regexp
+- Update of schema attributes (#645)
+- Adoption-of-dynamic-url-var-setting (#638)
+- Allow-hateoas-hal-fix (#634)
+- Update ApiInfo object with correct data before release (#622)
+- Correct severitys for Dok03 (#620)
+- Generate report buffer without writing to file system (#611)
+- Correct references to openapi.yaml (#597)
+- Update package-lock.json (#557)
+- Fix broken link (#521)
+- Fix project with just lint-fix, ignore some rules for now (#501)
+- Upgrade to reuseable-ci 2.6.x and just (#475)
+- Publish npm package to gh (#448)
 - Update projectType input (#427)
 - Fix broken link for contributing guidelines (#338)
 
 ### Removed
 
+- Remove paranoid setting from project config (#700)
+- Remove categories from generate report request in spec (#608)
 - Remove src code from container image (#430)
 
 
-## [1.0.0] - 2025-05-16
-
-### Changed
-
-- Initial commit
-
-[2.1.0]: https://github.com/diggsweden/rest-api-profil-lint-processor/compare/v2.0.0..v2.1.0
-[2.0.0]: https://github.com/diggsweden/rest-api-profil-lint-processor/compare/v1.1.1..v2.0.0
-[1.1.1]: https://github.com/diggsweden/rest-api-profil-lint-processor/compare/v1.1.0..v1.1.1
-[1.1.0]: https://github.com/diggsweden/rest-api-profil-lint-processor/compare/v1.0.0..v1.1.0
 
 <!-- generated by git-cliff -->
